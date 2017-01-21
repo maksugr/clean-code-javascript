@@ -1,47 +1,33 @@
+Оригинальный репозиторий: [ryanmcdermott/clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript)
 
 # clean-code-javascript
 
-## Table of Contents
-  1. [Introduction](#introduction)
-  2. [Variables](#variables)
-  3. [Functions](#functions)
-  4. [Objects and Data Structures](#objects-and-data-structures)
-  5. [Classes](#classes)
-  6. [Testing](#testing)
-  7. [Concurrency](#concurrency)
-  8. [Error Handling](#error-handling)
-  9. [Formatting](#formatting)
-  10. [Comments](#comments)
-  11. [Translation](#translation)
+## Содержание
+  1. [Введение](#введение)
+  2. [Переменные](#переменные)
+  3. [Функции](#функции)
+  4. [Объекты и структуры данных](#объекты-и-структуры-данных)
+  5. [Классы](#классы)
+  6. [Тестирование](#тестирование)
+  7. [Параллелизм](#параллелизм)
+  8. [Отлавливание ошибок](#отлавливание-ошибок)
+  9. [Форматирование](#форматирование)
+  10. [Комментарии](#комментарии)
+  11. [Переводы](#переводы)
 
-## Introduction
-![Humorous image of software quality estimation as a count of how many expletives
-you shout when reading code](http://www.osnews.com/images/comics/wtfm.jpg)
+## Введение
+![Юмористическое изображение оценки качества программного обеспечения: в качестве единицы измерения используется количество ругательства, выкрикиваемых во время чтения кода](http://www.osnews.com/images/comics/wtfm.jpg)
 
-Software engineering principles, from Robert C. Martin's book
-[*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882),
-adapted for JavaScript. This is not a style guide. It's a guide to producing
-readable, reusable, and refactorable software in JavaScript.
+Адаптация для JavaScript принципов разработки программного обеспечения из книги Роберта Мартина [*Чистый код*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882). Это не руководство по стилю. Это руководство по написанию читабельного и пригодного для переиспользования и рефакторинга программного обеспечения на JavaScript.
 
-Not every principle herein has to be strictly followed, and even fewer will be
-universally agreed upon. These are guidelines and nothing more, but they are
-ones codified over many years of collective experience by the authors of
-*Clean Code*.
+Не каждый принцип здесь должен строго соблюдаться и еще меньше получит всеобщее признание. Это принципы и ничего более, но они накапливались в течение многих лет коллективным опытом авторов *Чистого кода*.
 
-Our craft of software engineering is just a bit over 50 years old, and we are
-still learning a lot. When software architecture is as old as architecture
-itself, maybe then we will have harder rules to follow. For now, let these
-guidelines serve as a touchstone by which to assess the quality of the
-JavaScript code that you and your team produce.
+Исскуству написания программного обеспечения немногим более пятидесяти лет, и мы
+все еще многому учимся. Когда программная архитектура постареет до возраста самой архитектуры, быть может тогда у нас появятся жесткие правила, которым необходимо следовать. А сейчас пусть эти принципы служат критерием оценка качества JavaScript-кода, создаваемого вами и вашей командой.
 
-One more thing: knowing these won't immediately make you a better software
-developer, and working with them for many years doesn't mean you won't make
-mistakes. Every piece of code starts as a first draft, like wet clay getting
-shaped into its final form. Finally, we chisel away the imperfections when
-we review it with our peers. Don't beat yourself up for first drafts that need
-improvement. Beat up the code instead!
+И еще. Знание этих принципов не сразу сделает вас лучшее как разработчиков программного обеспечения, а их использование в течение многих лет не гарантирует, что вы перестанете совершать ошибки. Каждый фрагмент кода как первый набросок, как мокрая глина принимает свою форму постепенно. Наконец, все мы пронизаны несовершенством, когда наш код просматривают коллеги. Не истязайте себя за первые, нуждающиеся в улучшении, наброски. Вместо этого истязайте свой код!
 
-## **Variables**
+## **Переменные**
 ### Use meaningful and pronounceable variable names
 
 **Bad:**
@@ -195,7 +181,7 @@ function createMicrobrewery(breweryName = 'Hipster Brew Co.') {
 ```
 **[⬆ back to top](#table-of-contents)**
 
-## **Functions**
+## **Функции**
 ### Function arguments (2 or fewer ideally)
 Limiting the amount of function parameters is incredibly important because it
 makes testing your function easier. Having more than three leads to a
@@ -909,7 +895,7 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 ```
 **[⬆ back to top](#table-of-contents)**
 
-## **Objects and Data Structures**
+## **Объекты и структуры данных**
 ### Use getters and setters
 JavaScript doesn't have interfaces or types so it is very hard to enforce this
 pattern, because we don't have keywords like `public` and `private`. As it is,
@@ -1012,7 +998,7 @@ console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 **[⬆ back to top](#table-of-contents)**
 
 
-## **Classes**
+## **Классы**
 ### Single Responsibility Principle (SRP)
 As stated in Clean Code, "There should never be more than one reason for a class
 to change". It's tempting to jam-pack a class with a lot of functionality, like
@@ -1687,7 +1673,7 @@ class Employee {
 ```
 **[⬆ back to top](#table-of-contents)**
 
-## **Testing**
+## **Тестирование**
 Testing is more important than shipping. If you have no tests or an
 inadequate amount, then every time you ship code you won't be sure that you
 didn't break anything. Deciding on what constitutes an adequate amount is up
@@ -1755,7 +1741,7 @@ describe('MakeMomentJSGreatAgain', () => {
 ```
 **[⬆ back to top](#table-of-contents)**
 
-## **Concurrency**
+## **Параллелизм**
 ### Use Promises, not callbacks
 Callbacks aren't clean, and they cause excessive amounts of nesting. With ES2015/ES6,
 Promises are a built-in global type. Use them!
@@ -1831,7 +1817,7 @@ async function getCleanCodeArticle() {
 **[⬆ back to top](#table-of-contents)**
 
 
-## **Error Handling**
+## **Отлавливание ошибок**
 Thrown errors are a good thing! They mean the runtime has successfully
 identified when something in your program has gone wrong and it's letting
 you know by stopping function execution on the current stack, killing the
@@ -1904,7 +1890,7 @@ getdata()
 **[⬆ back to top](#table-of-contents)**
 
 
-## **Formatting**
+## **Форматирование**
 Formatting is subjective. Like many rules herein, there is no hard and fast
 rule that you must follow. The main point is DO NOT ARGUE over formatting.
 There are [tons of tools](http://standardjs.com/rules.html) to automate this.
@@ -2036,7 +2022,7 @@ review.perfReview();
 
 **[⬆ back to top](#table-of-contents)**
 
-## **Comments**
+## **Комментарии**
 ### Only comment things that have business logic complexity.
 Comments are an apology, not a requirement. Good code *mostly* documents itself.
 
@@ -2157,7 +2143,7 @@ const actions = function() {
 ```
 **[⬆ back to top](#table-of-contents)**
 
-## Translation
+## Переводы
 
 This is also available in other languages:
 
