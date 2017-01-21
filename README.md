@@ -3,17 +3,17 @@
 # clean-code-javascript
 
 ## Содержание
-  1. [Введение](#введение)
-  2. [Переменные](#переменные)
-  3. [Функции](#функции)
-  4. [Объекты и структуры данных](#объекты-и-структуры-данных)
-  5. [Классы](#классы)
-  6. [Тестирование](#тестирование)
-  7. [Параллелизм](#параллелизм)
-  8. [Отлавливание ошибок](#отлавливание-ошибок)
-  9. [Форматирование](#форматирование)
-  10. [Комментарии](#комментарии)
-  11. [Переводы](#переводы)
+  1. [Введение](https://github.com/maksugr/clean-code-javascript#Введение)
+  2. [Переменные](https://github.com/maksugr/clean-code-javascript#Переменные)
+  3. [Функции](https://github.com/maksugr/clean-code-javascript#Функции)
+  4. [Объекты и структуры данных](https://github.com/maksugr/clean-code-javascript#Объекты-и-структуры-данных)
+  5. [Классы](https://github.com/maksugr/clean-code-javascript#Классы)
+  6. [Тестирование](https://github.com/maksugr/clean-code-javascript#Тестирование)
+  7. [Параллелизм](https://github.com/maksugr/clean-code-javascrip#Параллелизм)
+  8. [Отлавливание ошибок](https://github.com/maksugr/clean-code-javascript#Отлавливание-ошибок)
+  9. [Форматирование](https://github.com/maksugr/clean-code-javascript#Форматирование)
+  10. [Комментарии](https://github.com/maksugr/clean-code-javascript#Комментарии)
+  11. [Переводы](https://github.com/maksugr/clean-code-javascript#Переводы)
 
 ## Введение
 ![Юмористическое изображение оценки качества программного обеспечения: в качестве единицы измерения используется количество ругательства, выкрикиваемых во время чтения кода](http://www.osnews.com/images/comics/wtfm.jpg)
@@ -28,81 +28,76 @@
 И еще. Знание этих принципов не сразу сделает вас лучшее как разработчиков программного обеспечения, а их использование в течение многих лет не гарантирует, что вы перестанете совершать ошибки. Каждый фрагмент кода как первый набросок, как мокрая глина принимает свою форму постепенно. Наконец, все мы пронизаны несовершенством, когда наш код просматривают коллеги. Не истязайте себя за первые, нуждающиеся в улучшении, наброски. Вместо этого истязайте свой код!
 
 ## **Переменные**
-### Use meaningful and pronounceable variable names
+### Используйте выразительные и произносимые имена переменных
 
-**Bad:**
+**Плохо:**
 ```javascript
 const yyyymmdstr = moment().format('YYYY/MM/DD');
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 const currentDate = moment().format('YYYY/MM/DD');
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Use the same vocabulary for the same type of variable
+### Используйте один и тот же лексикон для того же типа переменной
 
-**Bad:**
+**Плохо:**
 ```javascript
 getUserInfo();
 getClientData();
 getCustomerRecord();
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 getUser();
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Use searchable names
-We will read more code than we will ever write. It's important that the code we
-do write is readable and searchable. By *not* naming variables that end up
-being meaningful for understanding our program, we hurt our readers.
-Make your names searchable. Tools like
-[buddy.js](https://github.com/danielstjules/buddy.js) and
-[ESLint](https://github.com/eslint/eslint/blob/660e0918933e6e7fede26bc675a0763a6b357c94/docs/rules/no-magic-numbers.md)
-can help identify unnamed constants.
+### Используйте имена, доступные для поиска
+Мы прочитаем больше кода, чем когда-либо напишем. Это важно, чтобы код, который мы создаем, был читабельным и доступным для поиска. Невыразительно названные переменные ухудшают понимание наших программ и оскорбляют наших читателей. Делайте ваши обозначения доступными для поиска. Инструменты навроде [buddy.js](https://github.com/danielstjules/buddy.js) и [ESLint](https://github.com/eslint/eslint/blob/660e0918933e6e7fede26bc675a0763a6b357c94/docs/rules/no-magic-numbers.md) помогут найти неназванные константы.
 
-**Bad:**
+**Плохо:**
 ```javascript
-// What the heck is 86400000 for?
+// Что такое 86400000?
 setTimeout(blastOff, 86400000);
 
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
-// Declare them as capitalized `const` globals.
+// Объявляйте их как глобальный `const` со всеми буквами в заглавном регистре.
 const MILLISECONDS_IN_A_DAY = 86400000;
 
 setTimeout(blastOff, MILLISECONDS_IN_A_DAY);
 
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Use explanatory variables
-**Bad:**
+### Используйте объясняющие переменные
+
+**Плохо:**
 ```javascript
 const address = 'One Infinite Loop, Cupertino 95014';
 const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
 saveCityZipCode(address.match(cityZipCodeRegex)[1], address.match(cityZipCodeRegex)[2]);
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 const address = 'One Infinite Loop, Cupertino 95014';
 const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
 const [, city, zipCode] = address.match(cityZipCodeRegex) || [];
 saveCityZipCode(city, zipCode);
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Avoid Mental Mapping
-Explicit is better than implicit.
+### Избегайте мысленных связей
+Явное лучше, чем неявное.
 
-**Bad:**
+**Плохо:**
 ```javascript
 const locations = ['Austin', 'New York', 'San Francisco'];
 locations.forEach((l) => {
@@ -111,12 +106,12 @@ locations.forEach((l) => {
   // ...
   // ...
   // ...
-  // Wait, what is `l` for again?
+  // Стойте. Еще раз, что такое `l`?
   dispatch(l);
 });
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 const locations = ['Austin', 'New York', 'San Francisco'];
 locations.forEach((location) => {
@@ -128,13 +123,12 @@ locations.forEach((location) => {
   dispatch(location);
 });
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Don't add unneeded context
-If your class/object name tells you something, don't repeat that in your
-variable name.
+### Не добавляйте ненужный контекст
+Если ваше имя класса/объекта говорит за себя, не повторяйте его в имени переменной.
 
-**Bad:**
+**Плохо:**
 ```javascript
 const Car = {
   carMake: 'Honda',
@@ -147,7 +141,7 @@ function paintCar(car) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 const Car = {
   make: 'Honda',
@@ -159,11 +153,11 @@ function paintCar(car) {
   car.color = 'Red';
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Use default arguments instead of short circuiting or conditionals
+### Используйте аргументы по умолчанию вместо логических операторов
 
-**Bad:**
+**Плохо:**
 ```javascript
 function createMicrobrewery(name) {
   const breweryName = name || 'Hipster Brew Co.';
@@ -172,14 +166,14 @@ function createMicrobrewery(name) {
 
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function createMicrobrewery(breweryName = 'Hipster Brew Co.') {
   // ...
 }
 
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## **Функции**
 ### Function arguments (2 or fewer ideally)
@@ -198,14 +192,14 @@ Since JavaScript allows us to make objects on the fly, without a lot of class
 boilerplate, you can use an object if you are finding yourself needing a
 lot of arguments.
 
-**Bad:**
+**Плохо:**
 ```javascript
 function createMenu(title, body, buttonText, cancellable) {
   // ...
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function createMenu(config) {
   // ...
@@ -218,7 +212,7 @@ createMenu({
   cancellable: true
 });
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
 ### Functions should do one thing
@@ -228,7 +222,7 @@ When you can isolate a function to just one action, they can be refactored
 easily and your code will read much cleaner. If you take nothing else away from
 this guide other than this, you'll be ahead of many developers.
 
-**Bad:**
+**Плохо:**
 ```javascript
 function emailClients(clients) {
   clients.forEach((client) => {
@@ -240,7 +234,7 @@ function emailClients(clients) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function emailClients(clients) {
   clients
@@ -253,11 +247,11 @@ function isClientActive(client) {
   return clientRecord.isActive();
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Function names should say what they do
 
-**Bad:**
+**Плохо:**
 ```javascript
 function addToDate(date, month) {
   // ...
@@ -269,7 +263,7 @@ const date = new Date();
 addToDate(date, 1);
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function addMonthToDate(month, date) {
   // ...
@@ -278,14 +272,14 @@ function addMonthToDate(month, date) {
 const date = new Date();
 addMonthToDate(1, date);
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Functions should only be one level of abstraction
 When you have more than one level of abstraction your function is usually
 doing too much. Splitting up functions leads to reusability and easier
 testing.
 
-**Bad:**
+**Плохо:**
 ```javascript
 function parseBetterJSAlternative(code) {
   const REGEXES = [
@@ -311,7 +305,7 @@ function parseBetterJSAlternative(code) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function tokenize(code) {
   const REGEXES = [
@@ -346,7 +340,7 @@ function parseBetterJSAlternative(code) {
   });
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Remove duplicate code
 Do your absolute best to avoid duplicate code. Duplicate code is bad because it
@@ -370,7 +364,7 @@ worse than duplicate code, so be careful! Having said this, if you can make
 a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself
 updating multiple places anytime you want to change one thing.
 
-**Bad:**
+**Плохо:**
 ```javascript
 function showDeveloperList(developers) {
   developers.forEach((developer) => {
@@ -403,7 +397,7 @@ function showManagerList(managers) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function showList(employees) {
   employees.forEach((employee) => {
@@ -426,11 +420,11 @@ function showList(employees) {
   });
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Set default objects with Object.assign
 
-**Bad:**
+**Плохо:**
 ```javascript
 const menuConfig = {
   title: null,
@@ -449,7 +443,7 @@ function createMenu(config) {
 createMenu(menuConfig);
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 const menuConfig = {
   title: 'Order',
@@ -472,13 +466,13 @@ function createMenu(config) {
 
 createMenu(menuConfig);
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
 ### Don't use flags as function parameters
 Flags tell your user that this function does more than one thing. Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
 
-**Bad:**
+**Плохо:**
 ```javascript
 function createFile(name, temp) {
   if (temp) {
@@ -489,7 +483,7 @@ function createFile(name, temp) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function createFile(name) {
   fs.create(name);
@@ -499,7 +493,7 @@ function createTempFile(name) {
   createFile(`./temp/${name}`);
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Avoid Side Effects (part 1)
 A function produces a side effect if it does anything other than take a value in
@@ -517,7 +511,7 @@ without any structure, using mutable data types that can be written to by anythi
 and not centralizing where your side effects occur. If you can do this, you will
 be happier than the vast majority of other programmers.
 
-**Bad:**
+**Плохо:**
 ```javascript
 // Global variable referenced by following function.
 // If we had another function that used this name, now it'd be an array and it could break it.
@@ -532,7 +526,7 @@ splitIntoFirstAndLastName();
 console.log(name); // ['Ryan', 'McDermott'];
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function splitIntoFirstAndLastName(name) {
   return name.split(' ');
@@ -544,7 +538,7 @@ const newName = splitIntoFirstAndLastName(name);
 console.log(name); // 'Ryan McDermott';
 console.log(newName); // ['Ryan', 'McDermott'];
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Avoid Side Effects (part 2)
 In JavaScript, primitives are passed by value and objects/arrays are passed by
@@ -579,21 +573,21 @@ this isn't a big issue in practice because there are
 this kind of programming approach to be fast and not as memory intensive as
 it would be for you to manually clone objects and arrays.
 
-**Bad:**
+**Плохо:**
 ```javascript
 const addItemToCart = (cart, item) => {
   cart.push({ item, date: Date.now() });
 };
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 const addItemToCart = (cart, item) => {
   return [...cart, { item, date : Date.now() }];
 };
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Don't write to global functions
 Polluting globals is a bad practice in JavaScript because you could clash with another
@@ -606,7 +600,7 @@ to do the same thing. What if that other library was just using `diff` to find
 the difference between the first and last elements of an array? This is why it
 would be much better to just use ES2015/ES6 classes and simply extend the `Array` global.
 
-**Bad:**
+**Плохо:**
 ```javascript
 Array.prototype.diff = function diff(comparisonArray) {
   const hash = new Set(comparisonArray);
@@ -614,7 +608,7 @@ Array.prototype.diff = function diff(comparisonArray) {
 };
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class SuperArray extends Array {
   diff(comparisonArray) {
@@ -623,14 +617,14 @@ class SuperArray extends Array {
   }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Favor functional programming over imperative programming
 JavaScript isn't a functional language in the way that Haskell is, but it has
 a functional flavor to it. Functional languages are cleaner and easier to test.
 Favor this style of programming when you can.
 
-**Bad:**
+**Плохо:**
 ```javascript
 const programmerOutput = [
   {
@@ -655,7 +649,7 @@ for (let i = 0; i < programmerOutput.length; i++) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 const programmerOutput = [
   {
@@ -679,18 +673,18 @@ const totalOutput = programmerOutput
   .map((programmer) => programmer.linesOfCode)
   .reduce((acc, linesOfCode) => acc + linesOfCode, INITIAL_VALUE);
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Encapsulate conditionals
 
-**Bad:**
+**Плохо:**
 ```javascript
 if (fsm.state === 'fetching' && isEmpty(listNode)) {
   // ...
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function shouldShowSpinner(fsm, listNode) {
   return fsm.state === 'fetching' && isEmpty(listNode);
@@ -700,11 +694,11 @@ if (shouldShowSpinner(fsmInstance, listNodeInstance)) {
   // ...
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Avoid negative conditionals
 
-**Bad:**
+**Плохо:**
 ```javascript
 function isDOMNodeNotPresent(node) {
   // ...
@@ -715,7 +709,7 @@ if (!isDOMNodeNotPresent(node)) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function isDOMNodePresent(node) {
   // ...
@@ -725,7 +719,7 @@ if (isDOMNodePresent(node)) {
   // ...
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Avoid conditionals
 This seems like an impossible task. Upon first hearing this, most people say,
@@ -737,7 +731,7 @@ one thing. When you have classes and functions that have `if` statements, you
 are telling your user that your function does more than one thing. Remember,
 just do one thing.
 
-**Bad:**
+**Плохо:**
 ```javascript
 class Airplane {
   // ...
@@ -754,7 +748,7 @@ class Airplane {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class Airplane {
   // ...
@@ -781,7 +775,7 @@ class Cessna extends Airplane {
   }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Avoid type-checking (part 1)
 JavaScript is untyped, which means your functions can take any type of argument.
@@ -789,7 +783,7 @@ Sometimes you are bitten by this freedom and it becomes tempting to do
 type-checking in your functions. There are many ways to avoid having to do this.
 The first thing to consider is consistent APIs.
 
-**Bad:**
+**Плохо:**
 ```javascript
 function travelToTexas(vehicle) {
   if (vehicle instanceof Bicycle) {
@@ -800,13 +794,13 @@ function travelToTexas(vehicle) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function travelToTexas(vehicle) {
   vehicle.move(this.currentLocation, new Location('texas'));
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Avoid type-checking (part 2)
 If you are working with basic primitive values like strings, integers, and arrays,
@@ -819,7 +813,7 @@ doesn't make up for the lost readability. Keep your JavaScript clean, write
 good tests, and have good code reviews. Otherwise, do all of that but with
 TypeScript (which, like I said, is a great alternative!).
 
-**Bad:**
+**Плохо:**
 ```javascript
 function combine(val1, val2) {
   if (typeof val1 === 'number' && typeof val2 === 'number' ||
@@ -831,13 +825,13 @@ function combine(val1, val2) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function combine(val1, val2) {
   return val1 + val2;
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Don't over-optimize
 Modern browsers do a lot of optimization under-the-hood at runtime. A lot of
@@ -846,7 +840,7 @@ resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
 for seeing where optimization is lacking. Target those in the meantime, until
 they are fixed if they can be.
 
-**Bad:**
+**Плохо:**
 ```javascript
 
 // On old browsers, each iteration with uncached `list.length` would be costly
@@ -856,20 +850,20 @@ for (let i = 0, len = list.length; i < len; i++) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 for (let i = 0; i < list.length; i++) {
   // ...
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Remove dead code
 Dead code is just as bad as duplicate code. There's no reason to keep it in
 your codebase. If it's not being called, get rid of it! It will still be safe
 in your version history if you still need it.
 
-**Bad:**
+**Плохо:**
 ```javascript
 function oldRequestModule(url) {
   // ...
@@ -884,7 +878,7 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function newRequestModule(url) {
   // ...
@@ -893,7 +887,7 @@ function newRequestModule(url) {
 const req = newRequestModule;
 inventoryTracker('apples', req, 'www.inventory-awesome.io');
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## **Объекты и структуры данных**
 ### Use getters and setters
@@ -913,7 +907,7 @@ to look up and change every accessor in your codebase.
 server.
 
 
-**Bad:**
+**Плохо:**
 ```javascript
 class BankAccount {
   constructor() {
@@ -927,7 +921,7 @@ const bankAccount = new BankAccount();
 bankAccount.balance -= 100;
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class BankAccount {
   constructor(balance = 1000) {
@@ -959,13 +953,13 @@ bankAccount.balance -= shoesPrice;
 let balance = bankAccount.balance;
 
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
 ### Make objects have private members
 This can be accomplished through closures (for ES5 and below).
 
-**Bad:**
+**Плохо:**
 ```javascript
 
 const Employee = function(name) {
@@ -982,7 +976,7 @@ delete employee.name;
 console.log(`Employee name: ${employee.getName()}`); // Employee name: undefined
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 const Employee = function (name) {
   this.getName = function getName() {
@@ -995,7 +989,7 @@ console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 delete employee.name;
 console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
 ## **Классы**
@@ -1009,7 +1003,7 @@ It's important because if too much functionality is in one class and you modify 
 it can be difficult to understand how that will affect other dependent modules in
 your codebase.
 
-**Bad:**
+**Плохо:**
 ```javascript
 class UserSettings {
   constructor(user) {
@@ -1028,7 +1022,7 @@ class UserSettings {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class UserAuth {
   constructor(user) {
@@ -1054,7 +1048,7 @@ class UserSettings {
   }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Open/Closed Principle (OCP)
 As stated by Bertrand Meyer, "software entities (classes, modules, functions,
@@ -1062,7 +1056,7 @@ etc.) should be open for extension, but closed for modification." What does that
 mean though? This principle basically states that you should allow users to
 add new functionalities without changing existing code.
 
-**Bad:**
+**Плохо:**
 ```javascript
 class AjaxAdapter extends Adapter {
   constructor() {
@@ -1105,7 +1099,7 @@ function makeHttpCall(url) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class AjaxAdapter extends Adapter {
   constructor() {
@@ -1141,7 +1135,7 @@ class HttpRequester {
   }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
 ### Liskov Substitution Principle (LSP)
@@ -1158,7 +1152,7 @@ classic Square-Rectangle example. Mathematically, a square is a rectangle, but
 if you model it using the "is-a" relationship via inheritance, you quickly
 get into trouble.
 
-**Bad:**
+**Плохо:**
 ```javascript
 class Rectangle {
   constructor() {
@@ -1212,7 +1206,7 @@ const rectangles = [new Rectangle(), new Rectangle(), new Square()];
 renderLargeRectangles(rectangles);
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class Shape {
   setColor(color) {
@@ -1278,7 +1272,7 @@ function renderLargeShapes(shapes) {
 const shapes = [new Rectangle(), new Rectangle(), new Square()];
 renderLargeShapes(shapes);
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Interface Segregation Principle (ISP)
 JavaScript doesn't have interfaces so this principle doesn't apply as strictly
@@ -1294,7 +1288,7 @@ classes that require large settings objects. Not requiring clients to setup
 huge amounts of options is beneficial, because most of the time they won't need
 all of the settings. Making them optional helps prevent having a "fat interface".
 
-**Bad:**
+**Плохо:**
 ```javascript
 class DOMTraverser {
   constructor(settings) {
@@ -1320,7 +1314,7 @@ const $ = new DOMTraverser({
 
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class DOMTraverser {
   constructor(settings) {
@@ -1352,7 +1346,7 @@ const $ = new DOMTraverser({
   }
 });
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Dependency Inversion Principle (DIP)
 This principle states two essential things:
@@ -1375,7 +1369,7 @@ and properties that an object/class exposes to another object/class. In the
 example below, the implicit contract is that any Request module for an
 `InventoryTracker` will have a `requestItems` method.
 
-**Bad:**
+**Плохо:**
 ```javascript
 class InventoryRequester {
   constructor() {
@@ -1407,7 +1401,7 @@ const inventoryTracker = new InventoryTracker(['apples', 'bananas']);
 inventoryTracker.requestItems();
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class InventoryTracker {
   constructor(items, requester) {
@@ -1447,7 +1441,7 @@ class InventoryRequesterV2 {
 const inventoryTracker = new InventoryTracker(['apples', 'bananas'], new InventoryRequesterV2());
 inventoryTracker.requestItems();
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Prefer ES2015/ES6 classes over ES5 plain functions
 It's very difficult to get readable class inheritance, construction, and method
@@ -1455,7 +1449,7 @@ definitions for classical ES5 classes. If you need inheritance (and be aware
 that you might not), then prefer classes. However, prefer small functions over
 classes until you find yourself needing larger and more complex objects.
 
-**Bad:**
+**Плохо:**
 ```javascript
 const Animal = function(age) {
   if (!(this instanceof Animal)) {
@@ -1494,7 +1488,7 @@ Human.prototype.constructor = Human;
 Human.prototype.speak = function speak() {};
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class Animal {
   constructor(age) {
@@ -1522,7 +1516,7 @@ class Human extends Mammal {
   speak() { /* ... */ }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
 ### Use method chaining
@@ -1532,7 +1526,7 @@ For that reason, I say, use method chaining and take a look at how clean your co
 will be. In your class functions, simply return `this` at the end of every function,
 and you can chain further class methods onto it.
 
-**Bad:**
+**Плохо:**
 ```javascript
 class Car {
   constructor() {
@@ -1565,7 +1559,7 @@ car.setModel('F-150');
 car.save();
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class Car {
   constructor() {
@@ -1605,7 +1599,7 @@ const car = new Car()
   .setModel('F-150')
   .save();
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Prefer composition over inheritance
 As stated famously in [*Design Patterns*](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four,
@@ -1625,7 +1619,7 @@ relationship (Human->Animal vs. User->UserDetails).
 3. You want to make global changes to derived classes by changing a base class.
 (Change the caloric expenditure of all animals when they move).
 
-**Bad:**
+**Плохо:**
 ```javascript
 class Employee {
   constructor(name, email) {
@@ -1648,7 +1642,7 @@ class EmployeeTaxData extends Employee {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class EmployeeTaxData {
   constructor(ssn, salary) {
@@ -1671,7 +1665,7 @@ class Employee {
   // ...
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## **Тестирование**
 Testing is more important than shipping. If you have no tests or an
@@ -1692,7 +1686,7 @@ or refactoring an existing one.
 
 ### Single concept per test
 
-**Bad:**
+**Плохо:**
 ```javascript
 const assert = require('assert');
 
@@ -1715,7 +1709,7 @@ describe('MakeMomentJSGreatAgain', () => {
 });
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 const assert = require('assert');
 
@@ -1739,14 +1733,14 @@ describe('MakeMomentJSGreatAgain', () => {
   });
 });
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## **Параллелизм**
 ### Use Promises, not callbacks
 Callbacks aren't clean, and they cause excessive amounts of nesting. With ES2015/ES6,
 Promises are a built-in global type. Use them!
 
-**Bad:**
+**Плохо:**
 ```javascript
 require('request').get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin', (requestErr, response) => {
   if (requestErr) {
@@ -1764,7 +1758,7 @@ require('request').get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin', (req
 
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 require('request-promise').get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
   .then((response) => {
@@ -1778,7 +1772,7 @@ require('request-promise').get('https://en.wikipedia.org/wiki/Robert_Cecil_Marti
   });
 
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Async/Await are even cleaner than Promises
 Promises are a very clean alternative to callbacks, but ES2017/ES8 brings async and await
@@ -1787,7 +1781,7 @@ in an `async` keyword, and then you can write your logic imperatively without
 a `then` chain of functions. Use this if you can take advantage of ES2017/ES8 features
 today!
 
-**Bad:**
+**Плохо:**
 ```javascript
 require('request-promise').get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
   .then((response) => {
@@ -1802,7 +1796,7 @@ require('request-promise').get('https://en.wikipedia.org/wiki/Robert_Cecil_Marti
 
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 async function getCleanCodeArticle() {
   try {
@@ -1814,7 +1808,7 @@ async function getCleanCodeArticle() {
   }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
 ## **Отлавливание ошибок**
@@ -1831,7 +1825,7 @@ to the console. If you wrap any bit of code in a `try/catch` it means you
 think an error may occur there and therefore you should have a plan,
 or create a code path, for when it occurs.
 
-**Bad:**
+**Плохо:**
 ```javascript
 try {
   functionThatMightThrow();
@@ -1840,7 +1834,7 @@ try {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 try {
   functionThatMightThrow();
@@ -1859,7 +1853,7 @@ try {
 For the same reason you shouldn't ignore caught errors
 from `try/catch`.
 
-**Bad:**
+**Плохо:**
 ```javascript
 getdata()
 .then((data) => {
@@ -1870,7 +1864,7 @@ getdata()
 });
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 getdata()
 .then((data) => {
@@ -1887,7 +1881,7 @@ getdata()
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
 ## **Форматирование**
@@ -1905,7 +1899,7 @@ JavaScript is untyped, so capitalization tells you a lot about your variables,
 functions, etc. These rules are subjective, so your team can choose whatever
 they want. The point is, no matter what you all choose, just be consistent.
 
-**Bad:**
+**Плохо:**
 ```javascript
 const DAYS_IN_WEEK = 7;
 const daysInMonth = 30;
@@ -1920,7 +1914,7 @@ class animal {}
 class Alpaca {}
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 const DAYS_IN_WEEK = 7;
 const DAYS_IN_MONTH = 30;
@@ -1934,7 +1928,7 @@ function restoreDatabase() {}
 class Animal {}
 class Alpaca {}
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
 ### Function callers and callees should be close
@@ -1942,7 +1936,7 @@ If a function calls another, keep those functions vertically close in the source
 file. Ideally, keep the caller right above the callee. We tend to read code from
 top-to-bottom, like a newspaper. Because of this, make your code read that way.
 
-**Bad:**
+**Плохо:**
 ```javascript
 class PerformanceReview {
   constructor(employee) {
@@ -1981,7 +1975,7 @@ const review = new PerformanceReview(user);
 review.perfReview();
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 class PerformanceReview {
   constructor(employee) {
@@ -2020,13 +2014,13 @@ const review = new PerformanceReview(employee);
 review.perfReview();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## **Комментарии**
 ### Only comment things that have business logic complexity.
 Comments are an apology, not a requirement. Good code *mostly* documents itself.
 
-**Bad:**
+**Плохо:**
 ```javascript
 function hashIt(data) {
   // The hash
@@ -2047,7 +2041,7 @@ function hashIt(data) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 
 function hashIt(data) {
@@ -2064,12 +2058,12 @@ function hashIt(data) {
 }
 
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Don't leave commented out code in your codebase
 Version control exists for a reason. Leave old code in your history.
 
-**Bad:**
+**Плохо:**
 ```javascript
 doStuff();
 // doOtherStuff();
@@ -2077,17 +2071,17 @@ doStuff();
 // doSoMuchStuff();
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 doStuff();
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Don't have journal comments
 Remember, use version control! There's no need for dead code, commented code,
 and especially journal comments. Use `git log` to get history!
 
-**Bad:**
+**Плохо:**
 ```javascript
 /**
  * 2016-12-20: Removed monads, didn't understand them (RM)
@@ -2100,19 +2094,19 @@ function combine(a, b) {
 }
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 function combine(a, b) {
   return a + b;
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ### Avoid positional markers
 They usually just add noise. Let the functions and variable names along with the
 proper indentation and formatting give the visual structure to your code.
 
-**Bad:**
+**Плохо:**
 ```javascript
 ////////////////////////////////////////////////////////////////////////////////
 // Scope Model Instantiation
@@ -2130,7 +2124,7 @@ const actions = function() {
 };
 ```
 
-**Good:**
+**Хорошо:**
 ```javascript
 $scope.model = {
   menu: 'foo',
@@ -2141,7 +2135,7 @@ const actions = function() {
   // ...
 };
 ```
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## Переводы
 
@@ -2152,4 +2146,4 @@ This is also available in other languages:
   - ![de](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Germany.png) **German**: [marcbruederlin/clean-code-javascript](https://github.com/marcbruederlin/clean-code-javascript)
   - ![kr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/South-Korea.png) **Korean**: [qkraudghgh/clean-code-javascript-ko](https://github.com/qkraudghgh/clean-code-javascript-ko)
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
