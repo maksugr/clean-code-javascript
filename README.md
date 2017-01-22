@@ -9,7 +9,7 @@
   4. [Объекты и структуры данных](https://github.com/maksugr/clean-code-javascript#Объекты-и-структуры-данных)
   5. [Классы](https://github.com/maksugr/clean-code-javascript#Классы)
   6. [Тестирование](https://github.com/maksugr/clean-code-javascript#Тестирование)
-  7. [Параллелизм](https://github.com/maksugr/clean-code-javascrip#Параллелизм)
+  7. [Параллелизм](https://github.com/maksugr/clean-code-javascript#Параллелизм)
   8. [Отлавливание ошибок](https://github.com/maksugr/clean-code-javascript#Отлавливание-ошибок)
   9. [Форматирование](https://github.com/maksugr/clean-code-javascript#Форматирование)
   10. [Комментарии](https://github.com/maksugr/clean-code-javascript#Комментарии)
@@ -176,21 +176,12 @@ function createMicrobrewery(breweryName = 'Hipster Brew Co.') {
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## **Функции**
-### Function arguments (2 or fewer ideally)
-Limiting the amount of function parameters is incredibly important because it
-makes testing your function easier. Having more than three leads to a
-combinatorial explosion where you have to test tons of different cases with
-each separate argument.
+### Аргументы функции (идеально два или меньше)
+Ограничение количества параметров функции невероятно важно, потому что это упрощает тестирование. Более трех входных данных приводят к комбинаторному взрыву, где вы должны протестировать множество различных вариантов с каждым отдельным аргументом.
 
-Zero arguments is the ideal case. One or two arguments is ok, and three should
-be avoided. Anything more than that should be consolidated. Usually, if you have
-more than two arguments then your function is trying to do too much. In cases
-where it's not, most of the time a higher-level object will suffice as an
-argument.
+Ноль аргументов - идеальный случай, один или два аргумента - хорошо, трех аргументов нужно избегать. Большее количество аргументов должно быть объединено. Как правило, если у вас более двух аргументов, ваша функция пытается сделать слишком много. Для большинства случаев, где это простительно, в качестве аргумента будет достаточно объекта верхнего уровня.
 
-Since JavaScript allows us to make objects on the fly, without a lot of class
-boilerplate, you can use an object if you are finding yourself needing a
-lot of arguments.
+Поскольку JavaScript позволяет создавать объекты на лету, без классов в качестве основы, вы можете использовать их, если нуждаетесь во множестве аргументов.
 
 **Плохо:**
 ```javascript
@@ -215,12 +206,8 @@ createMenu({
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
-### Functions should do one thing
-This is by far the most important rule in software engineering. When functions
-do more than one thing, they are harder to compose, test, and reason about.
-When you can isolate a function to just one action, they can be refactored
-easily and your code will read much cleaner. If you take nothing else away from
-this guide other than this, you'll be ahead of many developers.
+### Функции должны производить только одно действие
+Это, безусловно, самое важное правило в разработке программного обеспечения. Когда функции делают больше чем одну вещь, их труднее объединять, тестировать и анализировать. Если вы сможете изолировать функцию так, чтобы она производила только одно действие, в дальнейшем она легко может быть переработана, а ваш код будет гораздо чище. Даже если из данного руководства вы не почерпнете ничего, кроме этого принципа, то вы уже оставите позади многих разработчиков.
 
 **Плохо:**
 ```javascript
@@ -249,7 +236,7 @@ function isClientActive(client) {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Function names should say what they do
+### Имена функций должны говорить, что они делают
 
 **Плохо:**
 ```javascript
@@ -259,7 +246,7 @@ function addToDate(date, month) {
 
 const date = new Date();
 
-// It's hard to to tell from the function name what is added
+// Из имени функции сложно понять, что она добавляет
 addToDate(date, 1);
 ```
 
@@ -274,10 +261,8 @@ addMonthToDate(1, date);
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Functions should only be one level of abstraction
-When you have more than one level of abstraction your function is usually
-doing too much. Splitting up functions leads to reusability and easier
-testing.
+### Функции должны иметь только один уровень абстракции
+Если у вас есть более чем один уровень абстракции, ваша функция, как правило, делает слишком много. Разделение функций приводит к возможности переиспользования и простоте тестирования.
 
 **Плохо:**
 ```javascript
@@ -296,11 +281,11 @@ function parseBetterJSAlternative(code) {
 
   const ast = [];
   tokens.forEach((token) => {
-    // lex...
+    // анализируем...
   });
 
   ast.forEach((node) => {
-    // parse...
+    // разбираем...
   });
 }
 ```
@@ -336,33 +321,20 @@ function parseBetterJSAlternative(code) {
   const tokens = tokenize(code);
   const ast = lexer(tokens);
   ast.forEach((node) => {
-    // parse...
+    // разбираем...
   });
 }
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Remove duplicate code
-Do your absolute best to avoid duplicate code. Duplicate code is bad because it
-means that there's more than one place to alter something if you need to change
-some logic.
+### Удаление повторяющегося кода
+Делайте все, чтобы избежать дублирования кода. Повторяющийся код плох тем, что если придется править вашу логику, ее придется править в нескольких местах.
 
-Imagine if you run a restaurant and you keep track of your inventory: all your
-tomatoes, onions, garlic, spices, etc. If you have multiple lists that
-you keep this on, then all have to be updated when you serve a dish with
-tomatoes in them. If you only have one list, there's only one place to update!
+Представьте себе, вы открыли ресторан и ведете учет продуктов (всех ваших помидоров, лука, чеснока, специй и т.д.). Если у вас несколько списков с продуктами, то, когда у вас закажут томатный суп, вам придется обновить их все. Если список у вас только один, то обновлять придется только его!
 
-Oftentimes you have duplicate code because you have two or more slightly
-different things, that share a lot in common, but their differences force you
-to have two or more separate functions that do much of the same things. Removing
-duplicate code means creating an abstraction that can handle this set of
-different things with just one function/module/class.
+Часто вы дублируете код, потому что у вас есть несколько логических участков, которые во многом схожи, но их различия заставляют вас иметь несколько функций, делающих много одинаковых операций. Удаление повторяющегося кода означает создание абстракции, обрабатывающей эту разную логику с помощью всего одной функции/модуля/класса.
 
-Getting the abstraction right is critical, that's why you should follow the
-SOLID principles laid out in the *Classes* section. Bad abstractions can be
-worse than duplicate code, so be careful! Having said this, if you can make
-a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself
-updating multiple places anytime you want to change one thing.
+Получение абстракции имеет решающее значение, поэтому вы должны следовать принципам проектирования классов (SOLID-принципам), изложенным в разделе *Классы*. Плохие абстракции могут оказаться хуже, чем повторяющийся код, так что будьте осторожны! Попросту говоря, если вы можете сделать хорошую абстракцию, делайте! Не повторяйте себя, в противном случае в любом момент вы можете обнаружить себя, вносящим изменения в несколько мест ради изменения одной единственной логики.
 
 **Плохо:**
 ```javascript
@@ -422,7 +394,7 @@ function showList(employees) {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Set default objects with Object.assign
+### Значения по умолчанию полей объекта устанавливайте с помощью Object.assign
 
 **Плохо:**
 ```javascript
@@ -447,7 +419,7 @@ createMenu(menuConfig);
 ```javascript
 const menuConfig = {
   title: 'Order',
-  // User did not include 'body' key
+  // Пользователь не добавил поле 'body'
   buttonText: 'Send',
   cancellable: true
 };
@@ -460,7 +432,7 @@ function createMenu(config) {
     cancellable: true
   }, config);
 
-  // config now equals: {title: "Order", body: "Bar", buttonText: "Send", cancellable: true}
+  // config теперь равен: {title: "Order", body: "Bar", buttonText: "Send", cancellable: true}
   // ...
 }
 
@@ -469,8 +441,8 @@ createMenu(menuConfig);
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
-### Don't use flags as function parameters
-Flags tell your user that this function does more than one thing. Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
+### Не используйте флаги в качестве параметров функции
+Флаги говорят о том, что эта функция делает больше чем одну вещь. Функции должны делать только одно. Разделите вашу функцию, если, основываясь на логическом параметре, она исполняет различный код.
 
 **Плохо:**
 ```javascript
@@ -495,26 +467,17 @@ function createTempFile(name) {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Avoid Side Effects (part 1)
-A function produces a side effect if it does anything other than take a value in
-and return another value or values. A side effect could be writing to a file,
-modifying some global variable, or accidentally wiring all your money to a
-stranger.
+### Избегайте побочных эффектов (часть первая)
+Функция производит побочный эффект, если она делает что-либо, кроме как принимает значение и возвращает другое значение. Побочным эффектом может быть запись в файл, изменение глобальной переменной или случайный перевод всех своих денег на незнакомца.
 
-Now, you do need to have side effects in a program on occasion. Like the previous
-example, you might need to write to a file. What you want to do is to
-centralize where you are doing this. Don't have several functions and classes
-that write to a particular file. Have one service that does it. One and only one.
+Однако в определенных случаях вам потребуются побочные эффекты. Как и в предыдущем примере, вам может понадобиться запись в файл. В таком случае, вам нужно централизовать, где вы будете это делать. Не нужно создавать несколько функций и классов для записи в конкретные файлы. Должен быть один сервис, делающий это. Один и только один.
 
-The main point is to avoid common pitfalls like sharing state between objects
-without any structure, using mutable data types that can be written to by anything,
-and not centralizing where your side effects occur. If you can do this, you will
-be happier than the vast majority of other programmers.
+Главное здесь - избежать распространенных ошибок: разделения состояния между объектами без какой-либо структуры, использование изменяемых типов данных, которые могут быть переопределены кем угодно, отсутствие централизированного места возникновения ваших побочных эффектов. Если вы сможете сделать это, вы станете счастливее, чем подавляющее большинство других программистов.
 
 **Плохо:**
 ```javascript
-// Global variable referenced by following function.
-// If we had another function that used this name, now it'd be an array and it could break it.
+// Глобальную переменную использует следующая за ней функция.
+// Функция превращает переменную в массив и если бы у нас была еще одна функция, использующая эту же переменную, то это могло бы привести к ее поломке.
 let name = 'Ryan McDermott';
 
 function splitIntoFirstAndLastName() {
@@ -540,38 +503,18 @@ console.log(newName); // ['Ryan', 'McDermott'];
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Avoid Side Effects (part 2)
-In JavaScript, primitives are passed by value and objects/arrays are passed by
-reference. In the case of objects and arrays, if our function makes a change
-in a shopping cart array, for example, by adding an item to purchase,
-then any other function that uses that `cart` array will be affected by this
-addition. That may be great, however it can be bad too. Let's imagine a bad
-situation:
+### Избегайте побочных эффектов (часть вторая)
+В JavaScript примитивы передаются по значению, а объекты/массивы передаются по ссылке. В случае объектов и массивов, если ваша функция вносит изменения в массив корзины покупок, например, путем добавления товара, то любая другая функция, которая использует этот массив `cart`, будет зависеть от этого дополнения. Это в равной мере может быть хорошо и плохо. Давайте представим себе плохой сценарий.
 
-The user clicks the "Purchase", button which calls a `purchase` function that
-spawns a network request and sends the `cart` array to the server. Because
-of a bad network connection, the `purchase` function has to keep retrying the
-request. Now, what if in the meantime the user accidentally clicks "Add to Cart"
-button on an item they don't actually want before the network request begins?
-If that happens and the network request begins, then that purchase function
-will send the accidentally added item because it has a reference to a shopping
-cart array that the `addItemToCart` function modified by adding an unwanted
-item.
+Пользователь нажимает на "Купить" - кнопку, вызывающую функцию `purchase`, которая создает сетевой запрос и отправляет массив `cart` на сервер. Из-за плохого подключения к сети функция `purchase` вынуждена повторно пытаться отправить запрос. А что если в то же время пользователь случайно нажимает кнопку "Добавить в корзину" на товаре, который он не хотел покупать до того, как начался сетевой запрос? Если это произойдет, а сетевой запрос уже начался, то функция покупки пошлет на сервер случайно добавленный товар, поскольку она имеет ссылку на массив корзины покупок, который функция `addItemToCart` модифицировала путем добавления нежелательного товара.
 
-A great solution would be for the `addItemToCart` to always clone the `cart`,
-edit it, and return the clone. This ensures that no other functions that are
-holding onto a reference of the shopping cart will be affected by any changes.
+Отличным решением было бы, чтобы функция `addItemToCart` всегда клонировала массив `cart`, редактировала его и возвращала отредактированный клон. Это бы гарантировало, что никакие другие функции, использующие ссылку на массив корзины покупок, не будут затронуты какими-либо изменениями.
 
-Two caveats to mention to this approach:
-  1. There might be cases where you actually want to modify the input object,
-but when you adopt this programming practice you will find that those case
-are pretty rare. Most things can be refactored to have no side effects!
+Стоит упомянуть два предостережения:
+  1. Могут быть случаи, когда вы на самом деле хотите изменить входящий объект, но когда вы привыкнете к такому подходу программирования, то обнаружите, что эти случаи довольно редки. Большую часть логики можно переделать так, чтобы побочных эффектов не было совсем!
 
-  2. Cloning big objects can be very expensive in terms of performance. Luckily,
-this isn't a big issue in practice because there are
-[great libraries](https://facebook.github.io/immutable-js/) that allow
-this kind of programming approach to be fast and not as memory intensive as
-it would be for you to manually clone objects and arrays.
+  2. Клонирование больших объектов может быть очень дорогими с точки зрения производительности. К счастью,
+это не является большой проблемой на практике, потому что существуют [отличные библиотеки] (https://facebook.github.io/immutable-js/), которые позволяют такому подходу программирования быть быстрым и не настолько затратным по памяти, как это было бы если бы вы вручную клонировали объекты и массивы.
 
 **Плохо:**
 ```javascript
