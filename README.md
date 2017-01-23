@@ -510,7 +510,7 @@ console.log(newName); // ['Ryan', 'McDermott'];
 
 Отличным решением было бы, чтобы функция `addItemToCart` всегда клонировала массив `cart`, редактировала его и возвращала отредактированный клон. Это бы гарантировало, что никакие другие функции, использующие ссылку на массив корзины покупок, не будут затронуты какими-либо изменениями.
 
-Стоит упомянуть два предостережения:
+Два предостережения:
   1. Могут быть случаи, когда вы на самом деле хотите изменить входящий объект, но когда вы привыкнете к такому подходу программирования, то обнаружите, что эти случаи довольно редки. Большую часть логики можно переделать так, чтобы побочных эффектов не было совсем!
 
   2. Клонирование больших объектов может быть очень дорогими с точки зрения производительности. К счастью,
@@ -704,11 +704,8 @@ class Cessna extends Airplane {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Avoid type-checking (part 1)
-JavaScript is untyped, which means your functions can take any type of argument.
-Sometimes you are bitten by this freedom and it becomes tempting to do
-type-checking in your functions. There are many ways to avoid having to do this.
-The first thing to consider is consistent APIs.
+### Избегайте проверки типов (часть первая)
+JavaScript - слабо типизированный язык программирования - ваши функции могут принимать аргументы любого типа. Иногда такая свобода играет против вас и велик соблаз ввести в функции проверку типов. Есть много способов избежать этого. Первый - уплотнить API.
 
 **Плохо:**
 ```javascript
@@ -729,16 +726,9 @@ function travelToTexas(vehicle) {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Avoid type-checking (part 2)
-If you are working with basic primitive values like strings, integers, and arrays,
-and you can't use polymorphism but you still feel the need to type-check,
-you should consider using TypeScript. It is an excellent alternative to normal
-JavaScript, as it provides you with static typing on top of standard JavaScript
-syntax. The problem with manually type-checking normal JavaScript is that
-doing it well requires so much extra verbiage that the faux "type-safety" you get
-doesn't make up for the lost readability. Keep your JavaScript clean, write
-good tests, and have good code reviews. Otherwise, do all of that but with
-TypeScript (which, like I said, is a great alternative!).
+### Избегайте проверки типов (часть вторая)
+Если вы работаете с базовыми примитивными значениями, как строки, числа и массивы, и вы не можете использовать полиморфизм, но вы все еще нуждаетесь в проверке типов, вы должны задуматься об использовании TypeScript. Это отличная альтернатива обычному JavaScript, так как он предоставляет вам статическую типизацию поверх стандартного JavaScript
+синтаксиса. Проблема ручной проверки типов JavaScript в том, что, если делать ее хорошо, она излишне многословна и получаемая вами безопасность не компенсирует потерянную читаемость. Держите JavaScript в чистоте, пишите хорошие тесты и проводите качественное рецензирование кода. В противном случае, делайте все необходимые проверки, но с TypeScript (который, как я уже сказал, - отличная альтернатива!).
 
 **Плохо:**
 ```javascript
@@ -760,18 +750,14 @@ function combine(val1, val2) {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Don't over-optimize
-Modern browsers do a lot of optimization under-the-hood at runtime. A lot of
-times, if you are optimizing then you are just wasting your time. [There are good
-resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
-for seeing where optimization is lacking. Target those in the meantime, until
-they are fixed if they can be.
+### Не оптимизируйте чрезмерно
+Под капотом современные браузеры осуществляют большой объем оптимизации во время выполнения кода. В большинстве случаев, если вы занимались оптимизацией, вы попусту потратили свое время. [Есть хорошие ресурсы] (https://github.com/petkaantonov/bluebird/wiki/Optimization-killers) для обнаружения нехватки оптимизации. Используйте их до того момента, пока ситуация не изменится.
 
 **Плохо:**
 ```javascript
 
-// On old browsers, each iteration with uncached `list.length` would be costly
-// because of `list.length` recomputation. In modern browsers, this is optimized.
+// В старых браузерах каждая итерация с незакешированным `list.length` - дорогостоящая.
+// Дело в постоянном перерасчете `list.length`. В современных браузерах это оптимизировано.
 for (let i = 0, len = list.length; i < len; i++) {
   // ...
 }
@@ -785,10 +771,8 @@ for (let i = 0; i < list.length; i++) {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Remove dead code
-Dead code is just as bad as duplicate code. There's no reason to keep it in
-your codebase. If it's not being called, get rid of it! It will still be safe
-in your version history if you still need it.
+### Удаляйте мертвый код
+Мертвый код - так же плохо, как повторяющийся код. Нет никаких оснований продолжать хранить его в кодовой базе. Если он не используется, избавьтесь от него! В случае надобности, его всегда можно найти в истории версий.
 
 **Плохо:**
 ```javascript
@@ -817,22 +801,15 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## **Объекты и структуры данных**
-### Use getters and setters
-JavaScript doesn't have interfaces or types so it is very hard to enforce this
-pattern, because we don't have keywords like `public` and `private`. As it is,
-using getters and setters to access data on objects is far better than simply
-looking for a property on an object. "Why?" you might ask. Well, here's an
-unorganized list of reasons why:
+### Используйте геттеры и сеттеры
+JavaScript не имеет интерфейсов или типов и у нас нет ключевых слов `public` и `private`, поэтому этот паттерн труднореализуем. Тем не менее, использовать геттеры и сеттеры для доступа к данным объекта гораздо лучше, чем просто обращаться к его свойствам. Вы могли бы спросить: "Почему?". Ну, вот список причин, почему:
 
-* When you want to do more beyond getting an object property, you don't have
-to look up and change every accessor in your codebase.
-* Makes adding validation simple when doing a `set`.
-* Encapsulates the internal representation.
-* Easy to add logging and error handling when getting and setting.
-* Inheriting this class, you can override default functionality.
-* You can lazy load your object's properties, let's say getting it from a
-server.
-
+* Если вы хотите сделать больше, чем просто получить свойство объекта.
+* Делает добавление валидации при выполнении `set` элементарным.
+* Инкапсулирует внутреннее представление.
+* При получении и добавлении легко внедрить логирование и обработку ошибок.
+* Наследовав класс, вы можете переопределить функциональность по умолчанию.
+* Вы можете использовать ленивую загрузку свойств вашего объекта, скажем, получая их с сервера.
 
 **Плохо:**
 ```javascript
@@ -844,7 +821,7 @@ class BankAccount {
 
 const bankAccount = new BankAccount();
 
-// Buy shoes...
+// Покупаем обувь...
 bankAccount.balance -= 100;
 ```
 
@@ -855,7 +832,7 @@ class BankAccount {
     this._balance = balance;
   }
 
-  // It doesn't have to be prefixed with `get` or `set` to be a getter/setter
+  // Не обязательно делать префикс `get` или `set` чтобы это был геттер/сеттер
   set balance(amount) {
     if (verifyIfAmountCanBeSetted(amount)) {
       this._balance = amount;
@@ -873,18 +850,18 @@ class BankAccount {
 
 const bankAccount = new BankAccount();
 
-// Buy shoes...
+// Покупаем обувь...
 bankAccount.balance -= shoesPrice;
 
-// Get balance
+// Получаем баланс
 let balance = bankAccount.balance;
 
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
-### Make objects have private members
-This can be accomplished through closures (for ES5 and below).
+### Создавайте в объектах приватные поля
+Это может быть достигнуто по средством замыканий (для версии ES5 и ниже).
 
 **Плохо:**
 ```javascript
@@ -898,9 +875,9 @@ Employee.prototype.getName = function getName() {
 };
 
 const employee = new Employee('John Doe');
-console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
+console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: John Doe
 delete employee.name;
-console.log(`Employee name: ${employee.getName()}`); // Employee name: undefined
+console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: undefined
 ```
 
 **Хорошо:**
@@ -912,9 +889,9 @@ const Employee = function (name) {
 };
 
 const employee = new Employee('John Doe');
-console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
+console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: John Doe
 delete employee.name;
-console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
+console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: John Doe
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
