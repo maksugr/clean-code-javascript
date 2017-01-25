@@ -897,15 +897,8 @@ console.log(`Employee name: ${employee.getName()}`); // Имя сотрудни�
 
 
 ## **Классы**
-### Single Responsibility Principle (SRP)
-As stated in Clean Code, "There should never be more than one reason for a class
-to change". It's tempting to jam-pack a class with a lot of functionality, like
-when you can only take one suitcase on your flight. The issue with this is
-that your class won't be conceptually cohesive and it will give it many reasons
-to change. Minimizing the amount of times you need to change a class is important.
-It's important because if too much functionality is in one class and you modify a piece of it,
-it can be difficult to understand how that will affect other dependent modules in
-your codebase.
+### Принцип единственной ответственности (SRP)
+Чистый код декларирует: "Не должно быть более чем одной причины для изменения класса". Заманчиво представить себе класс, переполненный большим количеством функционала, словно в поездку вам позволили взять всего один чемодан. Проблема в том, что ваш класс не будет концептуально единым и это даст ему множество причин для изменения. Имеет огромное значение свести к минимуму количество таких причин. Если сосредоточить слишком много функциональности в одном классе, а затем попытаться изменить его часть, то спрогнозировать, как это может сказаться на других модулях системы, станет крайне сложно.
 
 **Плохо:**
 ```javascript
