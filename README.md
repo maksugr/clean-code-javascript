@@ -947,11 +947,8 @@ class UserSettings {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Open/Closed Principle (OCP)
-As stated by Bertrand Meyer, "software entities (classes, modules, functions,
-etc.) should be open for extension, but closed for modification." What does that
-mean though? This principle basically states that you should allow users to
-add new functionalities without changing existing code.
+### Принцип открытости/закрытости (OCP)
+Как заявил Бертран Мейер, программные сущности (классы, модули, функции и т.д.) должны оставаться открытыми для расширения, но закрытыми для модификации. Что это означает на практике? Принцип закрепляет, что вы должны позволить пользователям добавлять новые функциональные возможности, но без изменения существующего кода.
 
 **Плохо:**
 ```javascript
@@ -977,22 +974,22 @@ class HttpRequester {
   fetch(url) {
     if (this.adapter.name === 'ajaxAdapter') {
       return makeAjaxCall(url).then((response) => {
-        // transform response and return
+        // трансформируем ответ и возвращаем
       });
     } else if (this.adapter.name === 'httpNodeAdapter') {
       return makeHttpCall(url).then((response) => {
-        // transform response and return
+        // трансформируем ответ и возвращаем
       });
     }
   }
 }
 
 function makeAjaxCall(url) {
-  // request and return promise
+  // делаем запрос и возвращаем промис
 }
 
 function makeHttpCall(url) {
-  // request and return promise
+  // делаем запрос и возвращаем промис
 }
 ```
 
@@ -1005,7 +1002,7 @@ class AjaxAdapter extends Adapter {
   }
 
   request(url) {
-    // request and return promise
+    // делаем запрос и возвращаем промис
   }
 }
 
@@ -1016,7 +1013,7 @@ class NodeAdapter extends Adapter {
   }
 
   request(url) {
-    // request and return promise
+    // делаем запрос и возвращаем промис
   }
 }
 
@@ -1027,7 +1024,7 @@ class HttpRequester {
 
   fetch(url) {
     return this.adapter.request(url).then((response) => {
-      // transform response and return
+      // трансформируем ответ и возвращаем
     });
   }
 }
@@ -1035,19 +1032,10 @@ class HttpRequester {
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
-### Liskov Substitution Principle (LSP)
-This is a scary term for a very simple concept. It's formally defined as "If S
-is a subtype of T, then objects of type T may be replaced with objects of type S
-(i.e., objects of type S may substitute objects of type T) without altering any
-of the desirable properties of that program (correctness, task performed,
-etc.)." That's an even scarier definition.
+### Принцип подстановки Барбары Лисков (LSP)
+Это страшный термин для очень простой концепции. Формальным языком он звучит следующим образом: "Если S является подтипом T, то объекты типа Т могут быть заменены на объекты типа S (то есть, объекты типа S могут заменить объекты типа Т) без влияния на важные свойства программы (корректность, пригодность для выполнения задач и т.д.). И да, в итоге определение получилось еще страшней.
 
-The best explanation for this is if you have a parent class and a child class,
-then the base class and child class can be used interchangeably without getting
-incorrect results. This might still be confusing, so let's take a look at the
-classic Square-Rectangle example. Mathematically, a square is a rectangle, but
-if you model it using the "is-a" relationship via inheritance, you quickly
-get into trouble.
+Лучшее объяснение заключается в том, что если у вас есть родительский и дочерний классы, то они могут использоваться как взаимозаменяемые, не приводя при этом к некорректным результатам. Это по-прежнему может сбивать с толку, так что давайте взглянем на классический пример квадрата-прямоугольника. Математически квадрат представляет собой прямоугольник, но если вы смоделируете их отношения через наследование ("является разновидностью"), вы быстро наткнетесь на неприятности.
 
 **Плохо:**
 ```javascript
@@ -1094,7 +1082,7 @@ function renderLargeRectangles(rectangles) {
   rectangles.forEach((rectangle) => {
     rectangle.setWidth(4);
     rectangle.setHeight(5);
-    const area = rectangle.getArea(); // BAD: Will return 25 for Square. Should be 20.
+    const area = rectangle.getArea(); // ПЛОХО: Вернет 25 для Квадрата. Должно быть 20.
     rectangle.render(area);
   });
 }
@@ -1171,19 +1159,10 @@ renderLargeShapes(shapes);
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Interface Segregation Principle (ISP)
-JavaScript doesn't have interfaces so this principle doesn't apply as strictly
-as others. However, it's important and relevant even with JavaScript's lack of
-type system.
+### Принцип разделения интерфейса (ISP)
+JavaScript не имеет интерфейсов, так что этот принцип не применяется так строго, как другие. Тем не менее, это важно и актуально даже в виду их отсутствия. Принцип утверждает, что клиенты не должны зависеть от интерфейсов, которые они не используют. Из-за утиной типизации, в JavaScript интерфейсы - это неявные контракты.
 
-ISP states that "Clients should not be forced to depend upon interfaces that
-they do not use." Interfaces are implicit contracts in JavaScript because of
-duck typing.
-
-A good example to look at that demonstrates this principle in JavaScript is for
-classes that require large settings objects. Not requiring clients to setup
-huge amounts of options is beneficial, because most of the time they won't need
-all of the settings. Making them optional helps prevent having a "fat interface".
+Хорошим примером станут классы, предусматривающие множество настроек для объектов. Полезно не требовать от клиентов проставления их всех, потому что большую часть времени все они не требуются. Создание опциональных настроек помогает предотвратить разбухание интерфейса.
 
 **Плохо:**
 ```javascript
@@ -1205,7 +1184,7 @@ class DOMTraverser {
 
 const $ = new DOMTraverser({
   rootNode: document.getElementsByTagName('body'),
-  animationModule() {} // Most of the time, we won't need to animate when traversing.
+  animationModule() {} // В большинстве случаев анимация нам не пригодится.
   // ...
 });
 
@@ -1245,26 +1224,14 @@ const $ = new DOMTraverser({
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Dependency Inversion Principle (DIP)
-This principle states two essential things:
-1. High-level modules should not depend on low-level modules. Both should
-depend on abstractions.
-2. Abstractions should not depend upon details. Details should depend on
-abstractions.
+### Принцип инверсии зависимостей (DIP)
+Этот принцип закрепляет две важные вещи:
+1. Модули верхнего уровня не должны зависеть от модулей низкого уровня. И те, и другие должны зависеть от абстракций.
+2. Абстракции не должны зависеть от деталей. Детали должны зависеть от абстракций.
 
-This can be hard to understand at first, but if you've worked with Angular.js,
-you've seen an implementation of this principle in the form of Dependency
-Injection (DI). While they are not identical concepts, DIP keeps high-level
-modules from knowing the details of its low-level modules and setting them up.
-It can accomplish this through DI. A huge benefit of this is that it reduces
-the coupling between modules. Coupling is a very bad development pattern because
-it makes your code hard to refactor.
+На первый взгляд это кажется трудным, но если вы работали с Angular.js, вы видели реализацию этого принципа в виде внедрения зависимостей (Dependency Injection - DI). Несмотря на то, что DIP и DI - понятия не идентичные, DIP оберегает модули верхнего уровня от деталей модулей низкого уровня, а сделать это он может через DI. Огромное преимущество DIP в уменьшении взаимосвязей между модулями. Переплетение модулей - это антипаттерн, потому что оно делает рефакторинг вашего кода гораздо более трудоемким.
 
-As stated previously, JavaScript doesn't have interfaces so the abstractions
-that are depended upon are implicit contracts. That is to say, the methods
-and properties that an object/class exposes to another object/class. In the
-example below, the implicit contract is that any Request module for an
-`InventoryTracker` will have a `requestItems` method.
+Как было сказано выше, JavaScript не имеет интерфейсов, так что абстракции зависят от неявных контрактов. То есть, от методов и свойств, которые объект/класс предоставляет другому объекту/классу. В приведенном ниже примере, неявный контракт в том, что любой модуль запроса для `InventoryTracker` будет иметь метод `requestItems`.
 
 **Плохо:**
 ```javascript
@@ -1282,8 +1249,7 @@ class InventoryTracker {
   constructor(items) {
     this.items = items;
 
-    // BAD: We have created a dependency on a specific request implementation.
-    // We should just have requestItems depend on a request method: `request`
+    // ПЛОХО: Мы создали зависимость от конкретной реализации запроса.
     this.requester = new InventoryRequester();
   }
 
@@ -1333,18 +1299,15 @@ class InventoryRequesterV2 {
   }
 }
 
-// By constructing our dependencies externally and injecting them, we can easily
-// substitute our request module for a fancy new one that uses WebSockets.
+// Построив наши зависимости извне и внедряя их, мы можем легко
+// заменить наш модуль запроса на модный, например, использующий вебсокеты.
 const inventoryTracker = new InventoryTracker(['apples', 'bananas'], new InventoryRequesterV2());
 inventoryTracker.requestItems();
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Prefer ES2015/ES6 classes over ES5 plain functions
-It's very difficult to get readable class inheritance, construction, and method
-definitions for classical ES5 classes. If you need inheritance (and be aware
-that you might not), then prefer classes. However, prefer small functions over
-classes until you find yourself needing larger and more complex objects.
+### Классы ES2015/ES6 предпочтительней функций ES5
+При классическом подходе к классам в ES5 очень трудно добиться читаемого наследования, конструктора и определения методов. Если вам нужно наследование (будьте уверены, что вероятней всего нет), то лучше отдать предпочтение классам ES2015/ES6. Тем не менее, предпочитайте маленькие функции перед классами, пока вы не столкнетесь с необходимостью в более крупных и сложных объектах.
 
 **Плохо:**
 ```javascript
@@ -1416,12 +1379,8 @@ class Human extends Mammal {
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 
-### Use method chaining
-This pattern is very useful in JavaScript and you see it in many libraries such
-as jQuery and Lodash. It allows your code to be expressive, and less verbose.
-For that reason, I say, use method chaining and take a look at how clean your code
-will be. In your class functions, simply return `this` at the end of every function,
-and you can chain further class methods onto it.
+### Используйте цепочки методов
+Это очень полезный паттерн в JavaScript и вы встретите его во многих библиотеках, например, JQuery и Lodash. Он делает ваш код выразительным и менее многословным. Стройте цепочки методов и вы увидете, на сколько чище становится ваш код. Метод вашего класса должен просто возвращать `this` в конце своего вызова и вы сможете присоединить к нему вызов следующего метода.
 
 **Плохо:**
 ```javascript
@@ -1467,25 +1426,25 @@ class Car {
 
   setMake(make) {
     this.make = make;
-    // NOTE: Returning this for chaining
+    // ПРИМЕЧАНИЕ: Возвращаем this для построения цепочки
     return this;
   }
 
   setModel(model) {
     this.model = model;
-    // NOTE: Returning this for chaining
+    // ПРИМЕЧАНИЕ: Возвращаем this для построения цепочки
     return this;
   }
 
   setColor(color) {
     this.color = color;
-    // NOTE: Returning this for chaining
+    // ПРИМЕЧАНИЕ: Возвращаем this для построения цепочки
     return this;
   }
 
   save() {
     console.log(this.make, this.model, this.color);
-    // NOTE: Returning this for chaining
+    // ПРИМЕЧАНИЕ: Возвращаем this для построения цепочки
     return this;
   }
 }
