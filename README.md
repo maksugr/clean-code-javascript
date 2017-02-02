@@ -1457,23 +1457,14 @@ const car = new Car()
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Prefer composition over inheritance
-As stated famously in [*Design Patterns*](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four,
-you should prefer composition over inheritance where you can. There are lots of
-good reasons to use inheritance and lots of good reasons to use composition.
-The main point for this maxim is that if your mind instinctively goes for
-inheritance, try to think if composition could model your problem better. In some
-cases it can.
+### Предпочитайте композицию перед наследованием
+Как верно замечено в [*Design Patterns*](https://ru.wikipedia.org/wiki/Design_Patterns) под авторством Банды Четырех (Gang of Four), когда это возможно, вы должны отдавать предпочтение композиции перед наследованием. Есть много хороших причин для использования наследования и много хороших причин для применения композиции. Главное, что если ваш ум инстинктивно идет путем наследования, подумайте, может быть композиция способна решить вашу проблему лучше. В ряде случаев это именно так.
 
-You might be wondering then, "when should I use inheritance?" It
-depends on your problem at hand, but this is a decent list of when inheritance
-makes more sense than composition:
+Возможно вы задаетесь вопросом: "Когда я должен использовать наследование?". Это зависит от вашей проблемы, но вот конкретный список, когда наследование имеет больше смысла, чем композиция:
 
-1. Your inheritance represents an "is-a" relationship and not a "has-a"
-relationship (Human->Animal vs. User->UserDetails).
-2. You can reuse code from the base classes (Humans can move like all animals).
-3. You want to make global changes to derived classes by changing a base class.
-(Change the caloric expenditure of all animals when they move).
+1. Ваше наследование представляет собой отношения "является разновидностью", а не "включает в себя" (Человек->Животное против Пользователь->Детали_Пользователя).
+2. Вы можете повторно использовать код из базовых классов (люди могут двигаться как и все животные).
+3. Вы хотите сделать глобальные изменения в производных классах путем изменения базового класса (изменение расхода калорий всех животных во время движения).
 
 **Плохо:**
 ```javascript
@@ -1486,7 +1477,7 @@ class Employee {
   // ...
 }
 
-// Bad because Employees "have" tax data. EmployeeTaxData is not a type of Employee
+// Плохо, потому что Employee (Сотрудник) "имеет" налоговые данные. EmployeeTaxData (Налоговые_данные_сотрудника) не являются типом Employee (Сотрудника)
 class EmployeeTaxData extends Employee {
   constructor(ssn, salary) {
     super();
