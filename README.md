@@ -1477,7 +1477,8 @@ class Employee {
   // ...
 }
 
-// Плохо, потому что Employee (Сотрудник) "имеет" налоговые данные. EmployeeTaxData (Налоговые_данные_сотрудника) не являются типом Employee (Сотрудника)
+// Плохо, потому что Employee (Сотрудник) "имеет" налоговые данные.
+// EmployeeTaxData (Налоговые_данные_сотрудника) не являются типом Employee (Сотрудника).
 class EmployeeTaxData extends Employee {
   constructor(ssn, salary) {
     super();
