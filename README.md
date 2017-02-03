@@ -985,11 +985,11 @@ class HttpRequester {
 }
 
 function makeAjaxCall(url) {
-  // делаем запрос и возвращаем промис
+  // делаем запрос и возвращаем Промис
 }
 
 function makeHttpCall(url) {
-  // делаем запрос и возвращаем промис
+  // делаем запрос и возвращаем Промис
 }
 ```
 
@@ -1002,7 +1002,7 @@ class AjaxAdapter extends Adapter {
   }
 
   request(url) {
-    // делаем запрос и возвращаем промис
+    // делаем запрос и возвращаем Промис
   }
 }
 
@@ -1013,7 +1013,7 @@ class NodeAdapter extends Adapter {
   }
 
   request(url) {
-    // делаем запрос и возвращаем промис
+    // делаем запрос и возвращаем Промис
   }
 }
 
@@ -1572,9 +1572,8 @@ describe('MakeMomentJSGreatAgain', () => {
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## **Параллелизм**
-### Use Promises, not callbacks
-Callbacks aren't clean, and they cause excessive amounts of nesting. With ES2015/ES6,
-Promises are a built-in global type. Use them!
+### Используйте Промисы, а не Callback-функции
+Callback-функции ухудшают читаемость и приводят к чрезмерному количеству вложенности. В ES2015/ES6 Промисы - встроенный глобальный тип. Используйте их!
 
 **Плохо:**
 ```javascript
@@ -1610,12 +1609,8 @@ require('request-promise').get('https://en.wikipedia.org/wiki/Robert_Cecil_Marti
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Async/Await are even cleaner than Promises
-Promises are a very clean alternative to callbacks, but ES2017/ES8 brings async and await
-which offer an even cleaner solution. All you need is a function that is prefixed
-in an `async` keyword, and then you can write your logic imperatively without
-a `then` chain of functions. Use this if you can take advantage of ES2017/ES8 features
-today!
+### Async/Await даже чище, чем Промисы
+Промисы - очень чистая альтернатива callback-функциям, но ES2017/ES8 привносит async и await с еще более чистым решением. Все, что вам нужно, это функция с ключевым словом `async`, после чего вы можете писать логику императивно - без цепочек `then`. Если уже сегодня вы можете внедрить фичи ES2017/ES8, используйте `async/await`!
 
 **Плохо:**
 ```javascript
