@@ -1827,25 +1827,25 @@ review.perfReview();
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## **Комментарии**
-### Only comment things that have business logic complexity.
-Comments are an apology, not a requirement. Good code *mostly* documents itself.
+### Комментируйте только бизнес-логику
+Комментарии - оправдания и не являются обязательным требованием. Хороший код *в основном* документирует себя сам.
 
 **Плохо:**
 ```javascript
 function hashIt(data) {
-  // The hash
+  // Хэш
   let hash = 0;
 
-  // Length of string
+  // Длина строки
   const length = data.length;
 
-  // Loop through every character in data
+  // Цикл через каждый символ в данных
   for (let i = 0; i < length; i++) {
-    // Get character code.
+    // Получаем код символа
     const char = data.charCodeAt(i);
-    // Make the hash
+    // Создаем хэш
     hash = ((hash << 5) - hash) + char;
-    // Convert to 32-bit integer
+    // Преобразуем в 32-битное целое число
     hash &= hash;
   }
 }
@@ -1862,7 +1862,7 @@ function hashIt(data) {
     const char = data.charCodeAt(i);
     hash = ((hash << 5) - hash) + char;
 
-    // Convert to 32-bit integer
+    // Преобразуем в 32-битное целое число
     hash &= hash;
   }
 }
@@ -1870,8 +1870,8 @@ function hashIt(data) {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Don't leave commented out code in your codebase
-Version control exists for a reason. Leave old code in your history.
+### Не оставляйте закомментированный код в вашей кодовой базе
+Системы контроля версий существуют не зря. Оставьте старый код в истории.
 
 **Плохо:**
 ```javascript
@@ -1887,18 +1887,17 @@ doStuff();
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Don't have journal comments
-Remember, use version control! There's no need for dead code, commented code,
-and especially journal comments. Use `git log` to get history!
+### Не заводите журнальных комментариев
+Не забывайте использовать системы контроля версий! Нет необходимости в мертвом коде, закоментированном коде и особенно в журнальных комментариях. Используйте `git log`, чтобы получить историю!
 
 **Плохо:**
 ```javascript
 /**
- * 2016-12-20: Removed monads, didn't understand them (RM)
- * 2016-10-01: Improved using special monads (JP)
- * 2016-02-03: Removed type-checking (LI)
- * 2015-03-14: Added combine with type-checking (JR)
- */
+ * 2016-12-20: Удалены монады, не понимал их (RM)
+ * 2016-10-01: Улучшено использование специальных монады (JP)
+ * 2016-02-03: Исключена проверка типов (LI)
+ * 2015-03-14: Добавлен combine с проверкой типов (JR)
+ */
 function combine(a, b) {
   return a + b;
 }
@@ -1912,14 +1911,13 @@ function combine(a, b) {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Avoid positional markers
-They usually just add noise. Let the functions and variable names along with the
-proper indentation and formatting give the visual structure to your code.
+### Избегайте маркеров позиционирования
+Они, как правило, просто добавляют шум. Пусть функции и имена переменных вместе с правильными отступами и форматированием задают визуальную структуру кода.
 
 **Плохо:**
 ```javascript
 ////////////////////////////////////////////////////////////////////////////////
-// Scope Model Instantiation
+// Создание объекта
 ////////////////////////////////////////////////////////////////////////////////
 $scope.model = {
   menu: 'foo',
@@ -1927,7 +1925,7 @@ $scope.model = {
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-// Action setup
+// Установка экшена
 ////////////////////////////////////////////////////////////////////////////////
 const actions = function() {
   // ...
@@ -1949,11 +1947,11 @@ const actions = function() {
 
 ## Переводы
 
-This is also available in other languages:
+Данное руководство также доступно на других языках:
 
-  - ![br](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Brazil.png) **Brazilian Portuguese**: [fesnt/clean-code-javascript](https://github.com/fesnt/clean-code-javascript)
-  - ![cn](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) **Chinese**: [alivebao/clean-code-js](https://github.com/alivebao/clean-code-js)
-  - ![de](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Germany.png) **German**: [marcbruederlin/clean-code-javascript](https://github.com/marcbruederlin/clean-code-javascript)
-  - ![kr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/South-Korea.png) **Korean**: [qkraudghgh/clean-code-javascript-ko](https://github.com/qkraudghgh/clean-code-javascript-ko)
+  - ![br](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Brazil.png) **Бразильский португальский**: [fesnt/clean-code-javascript](https://github.com/fesnt/clean-code-javascript)
+  - ![cn](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) **Китайский**: [alivebao/clean-code-js](https://github.com/alivebao/clean-code-js)
+  - ![de](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Germany.png) **Немецкий**: [marcbruederlin/clean-code-javascript](https://github.com/marcbruederlin/clean-code-javascript)
+  - ![kr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/South-Korea.png) **Корейский**: [qkraudghgh/clean-code-javascript-ko](https://github.com/qkraudghgh/clean-code-javascript-ko)
 
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
