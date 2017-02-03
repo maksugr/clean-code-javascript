@@ -1641,20 +1641,11 @@ async function getCleanCodeArticle() {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-
 ## **Отлавливание ошибок**
-Thrown errors are a good thing! They mean the runtime has successfully
-identified when something in your program has gone wrong and it's letting
-you know by stopping function execution on the current stack, killing the
-process (in Node), and notifying you in the console with a stack trace.
+Выброшенные ошибки - отличная штука! Они означают, что когда во время выполнения вашей программы что-то пошло не так, это было успешно зафиксировано и донесено до вас путем остановки выполнения функции, убийства процесса и уведомления в консоль с трассировкой стека.
 
-### Don't ignore caught errors
-Doing nothing with a caught error doesn't give you the ability to ever fix
-or react to said error. Logging the error to the console (`console.log`)
-isn't much better as often times it can get lost in a sea of things printed
-to the console. If you wrap any bit of code in a `try/catch` it means you
-think an error may occur there and therefore you should have a plan,
-or create a code path, for when it occurs.
+### Не игнорируйте пойманные ошибки
+Игнорирование пойманной ошибки не дает вам возможности исправить или каким-либо образом отреагировать на ее появление. Логирование ошибок в консоль (`console.log`) не намного лучше, так как зачастую оно может потеряться в море консольных записей. Оборачивание куска кода в `try/catch` означает, что вы предполагаете возможность появления ошибки и имеете на этот случай четкий план.
 
 **Плохо:**
 ```javascript
@@ -1670,19 +1661,18 @@ try {
 try {
   functionThatMightThrow();
 } catch (error) {
-  // One option (more noisy than console.log):
+  // Один из вариантов (более навязчивый, чем console.log):
   console.error(error);
-  // Another option:
+  // Другой вариант:
   notifyUserOfError(error);
-  // Another option:
+  // Другой вариант:
   reportErrorToService(error);
-  // OR do all three!
+  // Или используйте все три!
 }
 ```
 
-### Don't ignore rejected promises
-For the same reason you shouldn't ignore caught errors
-from `try/catch`.
+### Не игнорируйте выполненные с ошибкой (rejected) Промисы
+Вы не должны игнорировать ошибки в Промисах по той же причине, что и в `try/catch`.
 
 **Плохо:**
 ```javascript
@@ -1702,18 +1692,17 @@ getdata()
   functionThatMightThrow(data);
 })
 .catch((error) => {
-  // One option (more noisy than console.log):
+  // Один из вариантов (более навязчивый, чем console.log):
   console.error(error);
-  // Another option:
+  // Другой вариант:
   notifyUserOfError(error);
-  // Another option:
+  // Другой вариант:
   reportErrorToService(error);
-  // OR do all three!
+  // Или используйте все три!
 });
 ```
 
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
-
 
 ## **Форматирование**
 Formatting is subjective. Like many rules herein, there is no hard and fast
@@ -1760,7 +1749,6 @@ class Animal {}
 class Alpaca {}
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
-
 
 ### Function callers and callees should be close
 If a function calls another, keep those functions vertically close in the source
