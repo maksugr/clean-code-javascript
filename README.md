@@ -1516,23 +1516,11 @@ class Employee {
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## **Тестирование**
-Testing is more important than shipping. If you have no tests or an
-inadequate amount, then every time you ship code you won't be sure that you
-didn't break anything. Deciding on what constitutes an adequate amount is up
-to your team, but having 100% coverage (all statements and branches) is how
-you achieve very high confidence and developer peace of mind. This means that
-in addition to having a great testing framework, you also need to use a
-[good coverage tool](http://gotwarlost.github.io/istanbul/).
+Тестирование важнее деплоя. Если у вас нет тестов или их мало, то каждый раз при выкладке кода на боевые сервера у вас нет уверенности, что ничего не сломалось. Решение о достаточном количестве тестов остается на совести вашей команды, но 100% покрытие тестами всех выражений и ветвлений обеспечивает высокое доверие к вашему коду и спокойствие всех разработчиков. Из этого следует, что в дополнение к отличному фреймворку для тестирования, необходимо также использовать [хороший инструмент покрытия](http://gotwarlost.github.io/istanbul/).
 
-There's no excuse to not write tests. There's [plenty of good JS test frameworks]
-(http://jstherightway.org/#testing-tools), so find one that your team prefers.
-When you find one that works for your team, then aim to always write tests
-for every new feature/module you introduce. If your preferred method is
-Test Driven Development (TDD), that is great, but the main point is to just
-make sure you are reaching your coverage goals before launching any feature,
-or refactoring an existing one.
+Нет оправдания не писать тесты. В JavaScript cуществует [множество хороших тестовых фреймворков](http://jstherightway.org/#testing-tools), так что найдите подходящий для вас. А когда найдете, то стремитесь писать тесты для каждой новой фичи или нового модуля. Замечательно, если вы предпочитаете метод Разработки через тестирование (TDD), но главное убедиться, что перед запуском любой новой фичи или рефакторинга существующей вы достигаете достаточного уровня покрытия тестами.
 
-### Single concept per test
+### Один кейс на один тест
 
 **Плохо:**
 ```javascript
