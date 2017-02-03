@@ -9,7 +9,7 @@
   4. [Объекты и структуры данных](https://github.com/maksugr/clean-code-javascript#Объекты-и-структуры-данных)
   5. [Классы](https://github.com/maksugr/clean-code-javascript#Классы)
   6. [Тестирование](https://github.com/maksugr/clean-code-javascript#Тестирование)
-  7. [Параллелизм](https://github.com/maksugr/clean-code-javascript#Параллелизм)
+  7. [Асинхронность](https://github.com/maksugr/clean-code-javascript#Асинхронность)
   8. [Отлавливание ошибок](https://github.com/maksugr/clean-code-javascript#Отлавливание-ошибок)
   9. [Форматирование](https://github.com/maksugr/clean-code-javascript#Форматирование)
   10. [Комментарии](https://github.com/maksugr/clean-code-javascript#Комментарии)
@@ -1571,7 +1571,7 @@ describe('MakeMomentJSGreatAgain', () => {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-## **Параллелизм**
+## **Асинхронность**
 ### Используйте Промисы, а не Callback-функции
 Callback-функции ухудшают читаемость и приводят к чрезмерному количеству вложенности. В ES2015/ES6 Промисы - встроенный глобальный тип. Используйте их!
 
@@ -1705,19 +1705,12 @@ getdata()
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
 ## **Форматирование**
-Formatting is subjective. Like many rules herein, there is no hard and fast
-rule that you must follow. The main point is DO NOT ARGUE over formatting.
-There are [tons of tools](http://standardjs.com/rules.html) to automate this.
-Use one! It's a waste of time and money for engineers to argue over formatting.
+Форматирование носит субъективный характер. Как и во многом собранном здесь, в вопросе форматирования нет жестких правил, которым вы обязаны следовать. Главное, не тратить время на споры о нем. Есть [тонны инструментов](http://standardjs.com/rules.html) для автоматизации этого процесса. Выберите один! Споры о форматировании - пустая трата времени и денег.
 
-For things that don't fall under the purview of automatic formatting
-(indentation, tabs vs. spaces, double vs. single quotes, etc.) look here
-for some guidance.
+Для случаев, не подходящих для автоматического форматирования (отступы, табуляция или пробелы, двойные кавычки против одинарных и т.д.), в данном руководстве содержатся лучшие практики.
 
-### Use consistent capitalization
-JavaScript is untyped, so capitalization tells you a lot about your variables,
-functions, etc. These rules are subjective, so your team can choose whatever
-they want. The point is, no matter what you all choose, just be consistent.
+### Будьте последовательны в капитализации
+JavaScript - нетипизированный язык, поэтому капитализация говорит вам многое о ваших переменных, функциях и т.д. Правила носят субъективный характер, ваша команда может выбрать любые. Главное, независимо от того, что вы выбрали, быть последовательными.
 
 **Плохо:**
 ```javascript
@@ -1750,10 +1743,8 @@ class Alpaca {}
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Function callers and callees should be close
-If a function calls another, keep those functions vertically close in the source
-file. Ideally, keep the caller right above the callee. We tend to read code from
-top-to-bottom, like a newspaper. Because of this, make your code read that way.
+### Вызывающая и вызываемая функции должны быть рядом
+Если функция вызывает другую, сохраняйте эти функции вертикально рядом в исходном файле. В идеале, держите вызывающую функцию прямо над вызываемой. Мы склонны читать код сверху-внизу, как газету. Поэтому подготавливайте ваш код для восприятия таким образом.
 
 **Плохо:**
 ```javascript
