@@ -1,5 +1,7 @@
 Оригинальный репозиторий: [ryanmcdermott/clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript)
 
+`Актуализировано по меньшей мере по состоянию на 4 февраля 2017 года`
+
 # clean-code-javascript
 
 ## Содержание
