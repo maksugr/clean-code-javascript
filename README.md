@@ -155,7 +155,8 @@ function paintCar(car) {
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
-### Используйте аргументы по умолчанию вместо логических операторов
+### Используйте аргументы по умолчанию вместо короткой схемы вычисления
+Аргументы по умолчанию часто чище, чем короткая схема вычисления. Имейте в виду, что если вы используете ее, ваша функция задает значения по умолчанию только для `undefined` аргументов. Другие "falsy" значения, такие как `''`, `""`, `false`, `null`, `0` и `NaN`, не будут заменены значением по умолчанию.
 
 **Плохо:**
 ```javascript
@@ -179,9 +180,15 @@ function createMicrobrewery(breweryName = 'Hipster Brew Co.') {
 ### Аргументы функции (идеально два или меньше)
 Ограничение количества параметров функции невероятно важно, потому что это упрощает тестирование. Более трех входных данных приводят к комбинаторному взрыву, где вы должны протестировать множество различных вариантов с каждым отдельным аргументом.
 
-Ноль аргументов - идеальный случай, один или два аргумента - хорошо, трех аргументов нужно избегать. Большее количество аргументов должно быть объединено. Как правило, если у вас более двух аргументов, ваша функция пытается сделать слишком много. Для большинства случаев, где это простительно, в качестве аргумента будет достаточно объекта верхнего уровня.
+Один аргумент или два - идеальный случай, трех аргументов нужно избегать. Большее количество аргументов должно быть объединено. Как правило, если у вас более двух аргументов, ваша функция пытается сделать слишком много. Для большинства случаев, где это простительно, в качестве аргумента будет достаточно объекта верхнего уровня.
 
 Поскольку JavaScript позволяет создавать объекты на лету, без классов в качестве основы, вы можете использовать их, если нуждаетесь во множестве аргументов.
+
+Для того, чтобы сделать очевидным, какие свойства функция ожидает на входе, вы можете использовать синтаксис деструкции из ES2015/ES6. Он имеет несколько преимуществ:
+
+1. Когда вы смотрите на сигнатуру функции, то сразу понятно, какие свойства используются.
+2. Деструкция клонирует примитивные значения аргумента-объекта, переданного в функцию. Это предотвращает побочные эффекты. Примечание: объекты и массивы, которые деструктурированы из аргумента-объекта, НЕ клонируются.
+3. Линтер может предупредить вас о неиспользуемых свойствах, что было бы невозможно без деструктурирования.
 
 **Плохо:**
 ```javascript
@@ -192,7 +199,7 @@ function createMenu(title, body, buttonText, cancellable) {
 
 **Хорошо:**
 ```javascript
-function createMenu(config) {
+function createMenu({ title, body, buttonText, cancellable }) {
   // ...
 }
 
@@ -371,7 +378,7 @@ function showManagerList(managers) {
 
 **Хорошо:**
 ```javascript
-function showList(employees) {
+function showEmployeeList(employees) {
   employees.forEach((employee) => {
     const expectedSalary = employee.calculateExpectedSalary();
     const experience = employee.getExperience();
@@ -511,9 +518,8 @@ console.log(newName); // ['Ryan', 'McDermott'];
 Отличным решением было бы, чтобы функция `addItemToCart` всегда клонировала массив `cart`, редактировала его и возвращала отредактированный клон. Это бы гарантировало, что никакие другие функции, использующие ссылку на массив корзины покупок, не будут затронуты какими-либо изменениями.
 
 Два предостережения:
-  1. Могут быть случаи, когда вы на самом деле хотите изменить входящий объект, но когда вы привыкнете к такому подходу программирования, то обнаружите, что эти случаи довольно редки. Большую часть логики можно переделать так, чтобы побочных эффектов не было совсем!
-
-  2. Клонирование больших объектов может быть очень дорогими с точки зрения производительности. К счастью,
+1. Могут быть случаи, когда вы на самом деле хотите изменить входящий объект, но когда вы привыкнете к такому подходу программирования, то обнаружите, что эти случаи довольно редки. Большую часть логики можно переделать так, чтобы побочных эффектов не было совсем!
+2. Клонирование больших объектов может быть очень дорогими с точки зрения производительности. К счастью,
 это не является большой проблемой на практике, потому что существуют [отличные библиотеки] (https://facebook.github.io/immutable-js/), которые позволяют такому подходу программирования быть быстрым и не настолько затратным по памяти, как это было бы если бы вы вручную клонировали объекты и массивы.
 
 **Плохо:**
@@ -711,7 +717,7 @@ JavaScript - слабо типизированный язык программи
 ```javascript
 function travelToTexas(vehicle) {
   if (vehicle instanceof Bicycle) {
-    vehicle.peddle(this.currentLocation, new Location('texas'));
+    vehicle.pedal(this.currentLocation, new Location('texas'));
   } else if (vehicle instanceof Car) {
     vehicle.drive(this.currentLocation, new Location('texas'));
   }
@@ -802,60 +808,55 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 
 ## **Объекты и структуры данных**
 ### Используйте геттеры и сеттеры
-JavaScript не имеет интерфейсов или типов и у нас нет ключевых слов `public` и `private`, поэтому этот паттерн труднореализуем. Тем не менее, использовать геттеры и сеттеры для доступа к данным объекта гораздо лучше, чем просто обращаться к его свойствам. Вы могли бы спросить: "Почему?". Ну, вот список причин, почему:
+Использовать геттеры и сеттеры для доступа к данным объекта гораздо лучше, чем напрямую обращаться к его свойствам. Почему? Вот список причин:
 
 * Если вы хотите сделать больше, чем просто получить свойство объекта.
 * Делает добавление валидации при выполнении `set` элементарным.
 * Инкапсулирует внутреннее представление.
 * При получении и добавлении легко внедрить логирование и обработку ошибок.
-* Наследовав класс, вы можете переопределить функциональность по умолчанию.
 * Вы можете использовать ленивую загрузку свойств вашего объекта, скажем, получая их с сервера.
 
 **Плохо:**
 ```javascript
-class BankAccount {
-  constructor() {
-    this.balance = 1000;
-  }
+function makeBankAccount() {
+  // ...
+
+  return {
+    balance: 0,
+    // ...
+  };
 }
 
-const bankAccount = new BankAccount();
-
-// Покупаем обувь...
-bankAccount.balance -= 100;
+const account = makeBankAccount();
+account.balance = 100;
 ```
 
 **Хорошо:**
 ```javascript
-class BankAccount {
-  constructor(balance = 1000) {
-    this._balance = balance;
+function makeBankAccount() {
+  // приватная переменная
+  let balance = 0;
+
+  // геттер является публичным, так как возвращается в объекте ниже
+  function getBalance() {
+    return balance;
   }
 
-  // Не обязательно делать префикс `get` или `set` чтобы это был геттер/сеттер
-  set balance(amount) {
-    if (verifyIfAmountCanBeSetted(amount)) {
-      this._balance = amount;
-    }
+  // сеттер является публичным, так как возвращается в объекте ниже
+  function setBalance(amount) {
+    // ... валидация перед обновлением баланса
+    balance = amount;
   }
 
-  get balance() {
-    return this._balance;
-  }
-
-  verifyIfAmountCanBeSetted(val) {
+  return {
     // ...
-  }
+    getBalance,
+    setBalance,
+  };
 }
 
-const bankAccount = new BankAccount();
-
-// Покупаем обувь...
-bankAccount.balance -= shoesPrice;
-
-// Получаем баланс
-let balance = bankAccount.balance;
-
+const account = makeBankAccount();
+account.setBalance(100);
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
@@ -865,16 +866,15 @@ let balance = bankAccount.balance;
 
 **Плохо:**
 ```javascript
+function makeEmployee(name) {
+  return {
+    getName() {
+      return name;
+    },
+  };
+}
 
-const Employee = function(name) {
-  this.name = name;
-};
-
-Employee.prototype.getName = function getName() {
-  return this.name;
-};
-
-const employee = new Employee('John Doe');
+const employee = makeEmployee('John Doe');
 console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: John Doe
 delete employee.name;
 console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: undefined
@@ -1104,17 +1104,9 @@ class Shape {
 }
 
 class Rectangle extends Shape {
-  constructor() {
+  constructor(width, height) {
     super();
-    this.width = 0;
-    this.height = 0;
-  }
-
-  setWidth(width) {
     this.width = width;
-  }
-
-  setHeight(height) {
     this.height = height;
   }
 
@@ -1124,12 +1116,8 @@ class Rectangle extends Shape {
 }
 
 class Square extends Shape {
-  constructor() {
+  constructor(length) {
     super();
-    this.length = 0;
-  }
-
-  setLength(length) {
     this.length = length;
   }
 
@@ -1140,21 +1128,12 @@ class Square extends Shape {
 
 function renderLargeShapes(shapes) {
   shapes.forEach((shape) => {
-    switch (shape.constructor.name) {
-      case 'Square':
-        shape.setLength(5);
-        break;
-      case 'Rectangle':
-        shape.setWidth(4);
-        shape.setHeight(5);
-    }
+      const area = shape.getArea();
+      shape.render(area);
+    });
+  }
 
-    const area = shape.getArea();
-    shape.render(area);
-  });
-}
-
-const shapes = [new Rectangle(), new Rectangle(), new Square()];
+const shapes = [new Rectangle(4, 5), new Rectangle(4, 5), new Square(5)];
 renderLargeShapes(shapes);
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
@@ -1532,7 +1511,7 @@ describe('MakeMomentJSGreatAgain', () => {
 
     date = new MakeMomentJSGreatAgain('1/1/2015');
     date.addDays(30);
-    date.shouldEqual('1/31/2015');
+    assert.equal('1/31/2015', date);
 
     date = new MakeMomentJSGreatAgain('2/1/2016');
     date.addDays(28);
@@ -1553,7 +1532,7 @@ describe('MakeMomentJSGreatAgain', () => {
   it('handles 30-day months', () => {
     const date = new MakeMomentJSGreatAgain('1/1/2015');
     date.addDays(30);
-    date.shouldEqual('1/31/2015');
+    assert.equal('1/31/2015', date);
   });
 
   it('handles leap year', () => {
