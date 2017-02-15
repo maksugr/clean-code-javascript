@@ -877,9 +877,9 @@ function makeEmployee(name) {
 }
 
 const employee = makeEmployee('John Doe');
-console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: John Doe
+console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 delete employee.name;
-console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: undefined
+console.log(`Employee name: ${employee.getName()}`); // Employee name: undefined
 ```
 
 **Хорошо:**
