@@ -868,6 +868,23 @@ account.setBalance(100);
 
 **Плохо:**
 ```javascript
+
+const Employee = function(name) {
+  this.name = name;
+};
+
+Employee.prototype.getName = function getName() {
+  return this.name;
+};
+
+const employee = new Employee('John Doe');
+console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
+delete employee.name;
+console.log(`Employee name: ${employee.getName()}`); // Employee name: undefined
+```
+
+**Хорошо:**
+```javascript
 function makeEmployee(name) {
   return {
     getName() {
@@ -877,23 +894,9 @@ function makeEmployee(name) {
 }
 
 const employee = makeEmployee('John Doe');
-console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: John Doe
+console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 delete employee.name;
-console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: undefined
-```
-
-**Хорошо:**
-```javascript
-const Employee = function (name) {
-  this.getName = function getName() {
-    return name;
-  };
-};
-
-const employee = new Employee('John Doe');
-console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: John Doe
-delete employee.name;
-console.log(`Employee name: ${employee.getName()}`); // Имя сотрудника: John Doe
+console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 ```
 **[⬆ Назад к Содержанию](https://github.com/maksugr/clean-code-javascript#Содержание)**
 
